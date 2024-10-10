@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiesta'24 Tickets</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('path-to-your-image.png') no-repeat center center;
+            background-size: cover;
+            background-color: #000; /* Fallback color */
+            margin: 0;
+            padding: 0;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* 50% transparency */
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: gold;
+            text-shadow: 2px 2px 5px black;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid gold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: black;
+            color: gold;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        .ticket-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ticket-list li {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .ticket-list a {
+            color: gold;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .ticket-list a:hover {
+            color: rgb(255, 0, 204);
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            input[type="text"] {
+                width: 90%;
+                font-size: 16px;
+            }
+
+            input[type="submit"] {
+                font-size: 16px;
+            }
+
+            .ticket-list li {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            input[type="submit"] {
+                font-size: 14px;
+            }
+
+            .ticket-list li {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>SY IT PRESENTS</h2>
+        <h1>FIESTA'24</h1>
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Enter your name...">
+            <input type="submit" value="Search" onclick="searchTicket()">
+        </div>
+        <ul class="ticket-list" id="ticketList">
+            <!-- Tickets will be populated here -->
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SY IT | Fiesta'24 Freshers Party</p>
+    </footer>
+
+    <script>
+        // Participants list generated from the extracted PDF names
+        const participants = [
+            { name: 'Abhijeet Bhapkar', ticketUrl: 'Boys/Abhijeet Bhapkar.pdf' },
+            { name: 'Aditya Dhanavade', ticketUrl: 'Boys/Aditya Dhanavade.pdf' },
+            { name: 'Aditya Kalel', ticketUrl: 'Boys/Aditya Kalel.pdf' },
+            { name: 'Ajit Pawara', ticketUrl: 'Boys/Ajit Pawara.pdf' },
+            { name: 'Arvinda Patil', ticketUrl: 'Boys/Arvinda Patil.pdf' },
+            { name: 'Atharva Swami', ticketUrl: 'Boys/Atharva Swami.pdf' },
+            { name: 'Ayush Khot', ticketUrl: 'Boys/Ayush Khot.pdf' },
+            { name: 'Ayush Pawar', ticketUrl: 'Boys/Ayush Pawar.pdf' },
+            { name: 'Chetan Gaikwad', ticketUrl: 'Boys/Chetan Gaikwad.pdf' },
+            { name: 'Dishat Padulkar', ticketUrl: 'Boys/Dishat Padulkar.pdf' },
+            { name: 'Gaurav Kinkar', ticketUrl: 'Boys/Gaurav Kinkar.pdf' },
+            { name: 'Harshad Waghmare', ticketUrl: 'Boys/Harshad Waghmare.pdf' },
+            { name: 'Hemant Shivankar', ticketUrl: 'Boys/Hemant Shivankar.pdf' },
+            { name: 'Laukik Warthi', ticketUrl: 'Boys/Laukik Warthi.pdf' },
+            { name: 'Mangesh Kumbhar', ticketUrl: 'Boys/Mangesh Kumbhar.pdf' },
+            { name: 'Omkar Patil', ticketUrl: 'Boys/Omkar Patil.pdf' },
+            { name: 'Parth Panaskar', ticketUrl: 'Boys/Parth Panaskar.pdf' },
+            { name: 'Parth Vidruk', ticketUrl: 'Boys/Parth Vidruk.pdf' },
+            { name: 'Piyush Phadke', ticketUrl: 'Boys/Piyush Phadke.pdf' },
+            { name: 'Prajwal Gore', ticketUrl: 'Boys/Prajwal Gore.pdf' },
+            { name: 'Prajwal Pawar', ticketUrl: 'Boys/Prajwal Pawar.pdf' },
+            { name: 'Prasad Gaikwad', ticketUrl: 'Boys/Prasad Gaikwad.pdf' },
+            { name: 'Pratik Mane', ticketUrl: 'Boys/Pratik Mane.pdf' },
+            { name: 'Rahil Shaikh', ticketUrl: 'Boys/Rahil Shaikh.pdf' },
+            { name: 'Ritesh Tandale', ticketUrl: 'Boys/Ritesh Tandale.pdf' },
+            { name: 'Rohan Bhosale', ticketUrl: 'Boys/Rohan Bhosale.pdf' },
+            { name: 'Rohan Murkute', ticketUrl: 'Boys/Rohan Murkute.pdf' },
+            { name: 'Roshan Mohod', ticketUrl: 'Boys/Roshan Mohod.pdf' },
+            { name: 'Roshan Raut', ticketUrl: 'Boys/Roshan Raut.pdf' },
+            { name: 'Samarth Babale', ticketUrl: 'Boys/Samarth Babale.pdf' },
+            { name: 'Samarth Shinde', ticketUrl: 'Boys/Samarth Shinde.pdf' },
+            { name: 'Saurabh Teli', ticketUrl: 'Boys/Saurabh Teli.pdf' },
+            { name: 'Shrijeet Suryawanshi', ticketUrl: 'Boys/Shrijeet Suryawanshi.pdf' },
+            { name: 'Soham Chavan', ticketUrl: 'Boys/Soham Chavan.pdf' },
+            { name: 'Sujit Desai', ticketUrl: 'Boys/Sujit Desai.pdf' },
+            { name: 'Sujit Pawar', ticketUrl: 'Boys/Sujit Pawar.pdf' },
+            { name: 'Sushant Wasagade', ticketUrl: 'Boys/Sushant Wasagade.pdf' },
+            { name: 'Vaibhav Khandare', ticketUrl: 'Boys/Vaibhav Khandare.pdf' },
+            { name: 'Vishnu Kalmegh', ticketUrl: 'Boys/Vishnu Kalmegh.pdf' },
+            { name: 'Yash Pawar', ticketUrl: 'Boys/Yash Pawar.pdf' },
+            { name: 'Aditi Patil', ticketUrl: 'Girls/Aditi Patil.pdf' },
+            { name: 'Anjali Karpe', ticketUrl: 'Girls/Anjali Karpe.pdf' },
+            { name: 'Diksha Shetkar', ticketUrl: 'Girls/Diksha Shetkar.pdf' },
+            { name: 'Gayatri Ghagre', ticketUrl: 'Girls/Gayatri ghagre.pdf' },
+            { name: 'Ishwari Gavhane', ticketUrl: 'Girls/Ishwari Gavhane.pdf' },
+            { name: 'Khushbu Gajbhiye', ticketUrl: 'Girls/Khushbu Gajbhiye.pdf' },
+            { name: 'Prajakta Hogale', ticketUrl: 'Girls/Prajakta Hogale.pdf' },
+            { name: 'Roshani Chondanshive', ticketUrl: 'Girls/Roshani Chondanshive.pdf' },
+            { name: 'Rucha Jangam', ticketUrl: 'Girls/Rucha Jangam.pdf' },
+            { name: 'Sakshi Awatade', ticketUrl: 'Girls/Sakshi Awatade.pdf' },
+            { name: 'Samiksha Patil', ticketUrl: 'Girls/Samiksha Patil.pdf' },
+            { name: 'Shivani Kolekar', ticketUrl: 'Girls/Shivani Kolekar.pdf' },
+            { name: 'Shweta Jadhav', ticketUrl: 'Girls/Shweta Jadhav.pdf' },
+            { name: 'Snehal Vishwatkarma', ticketUrl: 'Girls/Snehal Vishwatkarma.pdf' },
+            { name: 'Swara Kertar', ticketUrl: 'Girls/Swara Kertar.pdf' },
+            { name: 'Utkarsha Ghanvat', ticketUrl: 'Girls/Utkarsha Ghanvat.pdf' },
+            { name: 'Vaishnavi Khade', ticketUrl: 'Girls/Vaishnavi Khade.pdf' },
+            { name: 'Vaishnavi Satunde', ticketUrl: 'Girls/Vaishnavi Satunde.pdf' }
+           
+        ];
+
+        // Function to search and display matching tickets
+        function searchTicket() {
+    const searchQuery = document.getElementById('search').value.toLowerCase().trim();
+    const resultList = document.getElementById('ticketList');
+    resultList.innerHTML = ''; // Clear previous results
+
+    // Check if search input is empty
+    if (searchQuery === "") {
+        resultList.innerHTML = '<li>Please enter a name to search.</li>';
+        return;
+    }
+
+    const filteredParticipants = participants.filter(participant =>
+        participant.name.toLowerCase().includes(searchQuery)
+    );
+
+    if (filteredParticipants.length === 0) {
+        resultList.innerHTML = '<li>No results found</li>';
+    } else {
+        filteredParticipants.forEach(participant => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = participant.ticketUrl;
+            link.textContent = `${participant.name}'s Ticket`;
+            listItem.appendChild(link);
+            resultList.appendChild(listItem);
+        });
+    }
+}
+
+    </script>
+</body>
+</html>
